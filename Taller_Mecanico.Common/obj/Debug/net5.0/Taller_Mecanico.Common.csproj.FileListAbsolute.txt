@@ -1,0 +1,12 @@
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\bin\Debug\net5.0\Taller_Mecanico.Common.deps.json
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\bin\Debug\net5.0\Taller_Mecanico.Common.dll
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\bin\Debug\net5.0\ref\Taller_Mecanico.Common.dll
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\bin\Debug\net5.0\Taller_Mecanico.Common.pdb
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\obj\Debug\net5.0\Taller_Mecanico.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\obj\Debug\net5.0\Taller_Mecanico.Common.AssemblyInfoInputs.cache
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\obj\Debug\net5.0\Taller_Mecanico.Common.AssemblyInfo.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\obj\Debug\net5.0\Taller_Mecanico.Common.csproj.CoreCompileInputs.cache
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\obj\Debug\net5.0\Taller_Mecanico.Common.dll
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\obj\Debug\net5.0\ref\Taller_Mecanico.Common.dll
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\obj\Debug\net5.0\Taller_Mecanico.Common.pdb
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.Common\obj\Debug\net5.0\Taller_Mecanico.Common.csproj.AssemblyReference.cache
