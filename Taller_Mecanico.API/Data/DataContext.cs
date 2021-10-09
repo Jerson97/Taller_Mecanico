@@ -24,6 +24,7 @@ namespace Taller_Mecanico.API.Data
             modelBuilder.Entity<TipoVehiculo>().HasIndex(x => x.Descripcion).IsUnique();
             modelBuilder.Entity<Procedure>().HasIndex(x => x.Descripcion).IsUnique();
             modelBuilder.Entity<Marca>().HasIndex(x => x.Descripcion).IsUnique();
+            modelBuilder.Entity<TipoDocumento>().HasIndex(x => x.Descripcion).IsUnique();
         }
     }
 }
