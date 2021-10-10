@@ -13,5 +13,6 @@ namespace Taller_Mecanico.API.Data.Entities
         [MaxLength(50, ErrorMessage = "El campo {0} no peude tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo{0} es obligatorio")]
         public string Descripcion { get; set; }
+        public ICollection<Usuario> Usuarios { get; set; }
     }
 }
