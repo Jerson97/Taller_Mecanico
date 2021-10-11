@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Taller_Mecanico.API.Data.Entities;
 
 namespace Taller_Mecanico.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TipoVehiculoesController : Controller
     {
         private readonly DataContext _context;

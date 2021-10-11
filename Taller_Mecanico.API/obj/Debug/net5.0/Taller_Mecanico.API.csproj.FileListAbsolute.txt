@@ -169,3 +169,4 @@ C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\bin\Debug\net5.0\Taller_Mecanico.Common.dll
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\bin\Debug\net5.0\Taller_Mecanico.Common.pdb
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs

@@ -27,9 +27,9 @@ namespace Taller_Mecanico.API.Data
             await CheckDocumentosAsync();
             await CheckProceduresAsync();
             await CheckRolesAsync();
-            await ChechUsuarioAsync("75074618","Jerson","Ramirez","jerson@yopmail.com","3361255","Jr.Herrera 247", TipoUsuario.Usuario);
+            await ChechUsuarioAsync("75074618","Jerson","Ramirez","jerson@yopmail.com","3361255","Jr.Herrera 247", TipoUsuario.Admin);
             await ChechUsuarioAsync("85075644","Jose","Soto","jose@yopmail.com","3361472","Jr.Herrera 247", TipoUsuario.Usuario);
-            await ChechUsuarioAsync("95165165","Luis","Rodriguez","luis@yopmail.com","33612547","Jr.Herrera 247", TipoUsuario.Usuario);
+            await ChechUsuarioAsync("95165165","Luis","Rodriguez","luis@yopmail.com","33612547","Jr.Herrera 247", TipoUsuario.Admin);
 
         }
 

@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Taller_Mecanico.API.Data;
 using Taller_Mecanico.API.Data.Entities;
+using Taller_Mecanico.API.Models;
 
 namespace Taller_Mecanico.API.Helpers
 {
@@ -12,12 +13,14 @@ namespace Taller_Mecanico.API.Helpers
         private readonly UserManager<Usuario> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly DataContext _context;
+        private readonly SignInManager<Usuario> _signInManager;
 
-        public UsuarioHelper(UserManager<Usuario> userManager, RoleManager<IdentityRole> roleManager, DataContext context)
+        public UsuarioHelper(UserManager<Usuario> userManager, RoleManager<IdentityRole> roleManager, DataContext context, SignInManager<Usuario> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
+            _signInManager = signInManager;
         }
         public async Task<IdentityResult> AddUsuarioAsync(Usuario usuario, string password)
         {
@@ -48,6 +51,16 @@ namespace Taller_Mecanico.API.Helpers
         public async Task<bool> IsUserInRoleAsync(Usuario usuario, string roleName)
         {
             return await _userManager.IsInRoleAsync(usuario, roleName);
+        }
+
+        public async Task<SignInResult> LoginAsync(LoginViewModel model)
+        {
+            return await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }
