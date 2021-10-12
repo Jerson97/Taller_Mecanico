@@ -18,6 +18,11 @@ namespace Taller_Mecanico.API.Data
         public DbSet<Procedure> Procedures { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<TipoDocumento> TipoDocumentos { get; set; }
+        public DbSet<Vehiculo> Vehiculos { get; set; }
+        public DbSet<Detalle> Detalles { get; set; }
+        public DbSet<Historial> Historiales { get; set; }
+        public DbSet<VehiculoFoto> VehiculoFotos { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +31,7 @@ namespace Taller_Mecanico.API.Data
             modelBuilder.Entity<Procedure>().HasIndex(x => x.Descripcion).IsUnique();
             modelBuilder.Entity<Marca>().HasIndex(x => x.Descripcion).IsUnique();
             modelBuilder.Entity<TipoDocumento>().HasIndex(x => x.Descripcion).IsUnique();
+            modelBuilder.Entity<Vehiculo>().HasIndex(x => x.Placa).IsUnique();
         }
     }
 }

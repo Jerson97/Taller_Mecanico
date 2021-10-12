@@ -48,5 +48,8 @@ namespace Taller_Mecanico.API.Data.Entities
 
         [Display(Name = "Usuario")]
         public string NombreCompleto => $"{Nombres} {Apellidos}";
+
+        public ICollection<Vehiculo> Vehiculos { get; set; }
+
     }
 }
