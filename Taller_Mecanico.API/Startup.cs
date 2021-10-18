@@ -47,6 +47,9 @@ namespace Taller_Mecanico.API
             services.AddScoped<IUsuarioHelper, UsuarioHelper>(); //AddScoped es cuando necesitamos inyectar el ciclo de vida de esto, tiene q ver cada que nosotros llamemos, en este caso cada vez que llame al UserHelepr
                                                                  //el lo va a instanciar y luego lo va a matar
 
+            services.AddScoped<ICombosHelper, CombosHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
+
 
             //services.AddSingleton    // se usa cuando nosotros queremos q permanesca el objeto todo el ciclo de vida
         }
