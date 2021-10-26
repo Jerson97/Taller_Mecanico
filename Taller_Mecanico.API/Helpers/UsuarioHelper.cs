@@ -48,6 +48,13 @@ namespace Taller_Mecanico.API.Helpers
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 
+        public async Task<Usuario> GetUsuarioAsync(Guid id)
+        {
+            return await _context.Users
+                .Include(x => x.TipoDocumento)
+                .FirstOrDefaultAsync(x => x.Id == id.ToString());
+        }
+
         public async Task<bool> IsUserInRoleAsync(Usuario usuario, string roleName)
         {
             return await _userManager.IsInRoleAsync(usuario, roleName);
@@ -61,6 +68,19 @@ namespace Taller_Mecanico.API.Helpers
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<IdentityResult> UpdateUsuarioAsync(Usuario usuario)
+        {
+            Usuario usuarioAcual = await GetUsuarioAsync(usuario.Email);
+            usuarioAcual.Apellidos = usuario.Apellidos;
+            usuarioAcual.Nombres = usuario.Nombres;
+            usuarioAcual.TipoDocumento = usuario.TipoDocumento;
+            usuarioAcual.Documento = usuario.Documento;
+            usuarioAcual.Direccion = usuario.Direccion;
+            usuarioAcual.ImageId = usuario.ImageId;
+            usuarioAcual.PhoneNumber = usuario.PhoneNumber;
+            return await _userManager.UpdateAsync(usuarioAcual);
         }
     }
 }

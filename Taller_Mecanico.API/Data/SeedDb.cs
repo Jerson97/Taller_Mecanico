@@ -49,7 +49,8 @@ namespace Taller_Mecanico.API.Data
                     Apellidos = Apellido,
                     PhoneNumber = phoneNumber,
                     UserName = email,
-                    TipoUsuario = tipousuario
+                    TipoUsuario = tipousuario,
+
                 };
 
                 await _usuarioHelper.AddUsuarioAsync(usuario, "123456");

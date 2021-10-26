@@ -34,6 +34,7 @@ namespace Taller_Mecanico.API.Helpers
                  UserName = model.Email,
                  TipoUsuario = model.TipoUsuario,
 
+
             };
         }
 
@@ -48,6 +49,7 @@ namespace Taller_Mecanico.API.Helpers
                 Email = usuario.Email,
                 Nombres = usuario.Nombres,
                 Id = usuario.Id,
+                ImageId = usuario.ImageId,
                 Apellidos = usuario.Apellidos,
                 PhoneNumber = usuario.PhoneNumber,
                 TipoUsuario = usuario.TipoUsuario,

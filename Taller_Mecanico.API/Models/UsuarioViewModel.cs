@@ -58,5 +58,10 @@ namespace Taller_Mecanico.API.Models
 
         public IEnumerable<SelectListItem> TipoDocumentos { get; set; }
 
+        [Display(Name = "Foto")]
+        public string ImageFullPath => ImageId == Guid.Empty // Si el guid no tiene nada entonces me mostrara como imagen que no tiene imagen
+            ? $"https://localhost:5001/imagenes/no-image.png"
+            : $"https://ramireztaller.blob.core.windows.net/usuario/{ImageId}";
+
     }
 }

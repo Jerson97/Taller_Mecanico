@@ -19,13 +19,15 @@ namespace Taller_Mecanico.API.Controllers
         private readonly IUsuarioHelper _usuarioHelper;
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
-    
-        public UsuariosController(DataContext context, IUsuarioHelper usuarioHelper, ICombosHelper combosHelper, IConverterHelper converterHelper)
+        private readonly IBlobHelper _blobHelper;
+
+        public UsuariosController(DataContext context, IUsuarioHelper usuarioHelper, ICombosHelper combosHelper, IConverterHelper converterHelper, IBlobHelper blobHelper)
         {
             _context = context;
             _usuarioHelper = usuarioHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
+            _blobHelper = blobHelper;
         }
         public async Task<IActionResult> Index()
         {
@@ -54,10 +56,10 @@ namespace Taller_Mecanico.API.Controllers
             {
                 Guid imageId = Guid.Empty;
 
-                //if (model.ImageFile != null)
-                //{
-                //    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "users");
-                //}
+                if (model.ImageFile != null)
+                {
+                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "usuario");
+                }
 
                 Usuario user = await _converterHelper.toUsuarioAsync(model, imageId, true);
                 user.TipoUsuario = TipoUsuario.Usuario;
@@ -70,5 +72,47 @@ namespace Taller_Mecanico.API.Controllers
             model.TipoDocumentos = _combosHelper.GetComboTipoDocumentos();
             return View(model);
         }
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            Usuario usuario = await _usuarioHelper.GetUsuarioAsync(Guid.Parse(id));
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+
+            UsuarioViewModel model = _converterHelper.toUsuarioViewModel(usuario);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UsuarioViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                    Guid imageId = model.ImageId;
+                    if (model.ImageFile != null)
+                    {
+                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "usuario");
+                    }
+
+                    Usuario usuario = await _converterHelper.toUsuarioAsync(model, imageId, false);
+                    await _usuarioHelper.UpdateUsuarioAsync(usuario);
+                    return RedirectToAction(nameof(Index));
+                }
+
+            model.TipoDocumentos = _combosHelper.GetComboTipoDocumentos();    
+            return View(model);
+        }
     }
-}
+
+    }
+

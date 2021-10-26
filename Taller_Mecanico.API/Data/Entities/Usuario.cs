@@ -37,11 +37,10 @@ namespace Taller_Mecanico.API.Data.Entities
         [Display(Name = "Foto")]
         public Guid ImageId { get; set; }
 
-        //Todo: Fix the image path
         [Display(Name = "Foto")]
         public string ImageFullPath => ImageId == Guid.Empty // Si el guid no tiene nada entonces me mostrara como imagen que no tiene imagen
             ? $"https://localhost:5001/imagenes/no-image.png"
-            : $"https://vehicleszuluprep.blob.core.windows.net/Usuario/{ImageId}";
+            : $"https://ramireztaller.blob.core.windows.net/usuario/{ImageId}";
 
         [Display(Name = "Tipo de Usuario")]
         public TipoUsuario TipoUsuario { get; set; }
@@ -53,5 +52,6 @@ namespace Taller_Mecanico.API.Data.Entities
 
         [Display(Name = "# Vehiculos")]
         public int VehiculosCount => Vehiculos == null ? 0 : Vehiculos.Count;
+
     }
 }

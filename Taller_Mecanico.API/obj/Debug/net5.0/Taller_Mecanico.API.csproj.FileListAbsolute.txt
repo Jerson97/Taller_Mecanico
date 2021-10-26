@@ -173,3 +173,5 @@ C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\Index.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\Create.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\_Usuario.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\bin\Debug\net5.0\Microsoft.WindowsAzure.Storage.dll
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\Edit.cshtml.g.cs
