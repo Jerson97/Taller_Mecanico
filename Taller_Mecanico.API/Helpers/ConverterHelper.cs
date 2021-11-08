@@ -55,5 +55,36 @@ namespace Taller_Mecanico.API.Helpers
                 TipoUsuario = usuario.TipoUsuario,
             };
         }
+
+        public async Task<Vehiculo> toVehiculoAsync(VehiculoViewModel model, bool isNew)
+        {
+            return new Vehiculo
+            {
+                Marca = await _context.Marcas.FindAsync(model.MarcaId),
+                Color = model.Color,
+                Id = isNew ? 0 : model.Id,
+                Linea = model.Linea,
+                Modelo = model.Modelo,
+                Placa = model.Placa.ToUpper(),
+                Observaciones = model.Observaciones,
+                TipoVehiculo = await _context.TipoVehiculos.FindAsync(model.TipoVehiculoId)
+            };
+        }
+
+        public VehiculoViewModel toVeihculoViewModel(Vehiculo vehiculo)
+        {
+            return new VehiculoViewModel
+            {
+                MarcaId = vehiculo.Marca.Id,
+                Marcas = _combosHelper.GetComboMarcas(),
+                Color = vehiculo.Color,
+                Id = vehiculo.Id,
+                Linea = vehiculo.Linea,
+                Modelo = vehiculo.Modelo,
+                Placa = vehiculo.Placa.ToUpper(),
+                Observaciones = vehiculo.Observaciones,
+                UsuarioId = vehiculo.Usuario.Id
+            };
+        }
     }
 }

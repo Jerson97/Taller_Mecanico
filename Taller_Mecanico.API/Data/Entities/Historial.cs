@@ -31,6 +31,11 @@ namespace Taller_Mecanico.API.Data.Entities
         [DataType(DataType.MultilineText)]
         public string Obesersacion { get; set; }
 
+        [Display(Name = "Mecánico")]
+        //[JsonIgnore]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public Usuario Usuario { get; set; }
+
         public ICollection<Detalle> Detalles { get; set; }
 
         [Display(Name = "# Detalles")]

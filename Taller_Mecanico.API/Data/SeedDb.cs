@@ -29,12 +29,13 @@ namespace Taller_Mecanico.API.Data
             await CheckRolesAsync();
             await ChechUsuarioAsync("75074618","Jerson","Ramirez","jerson@yopmail.com","3361255","Jr.Herrera 247", TipoUsuario.Admin);
             await ChechUsuarioAsync("85075644","Jose","Soto","jose@yopmail.com","3361472","Jr.Herrera 247", TipoUsuario.Usuario);
-            await ChechUsuarioAsync("95165165","Luis","Rodriguez","luis@yopmail.com","33612547","Jr.Herrera 247", TipoUsuario.Admin);
-            await ChechUsuarioAsync("95165165","Pedro","Santos","pedro@yopmail.com","33612547","Jr.Herrera 247", TipoUsuario.Usuario);
+            //await ChechUsuarioAsync("95165165","Luis","Rodriguez","luis@yopmail.com","33612547","Jr.Herrera 247", TipoUsuario.Admin);
+            //await ChechUsuarioAsync("95165165","Pedro","Santos","pedro@yopmail.com","33612547","Jr.Herrera 247", TipoUsuario.Usuario);
 
         }
 
-        private async Task ChechUsuarioAsync(string documento, string Nombre, string Apellido, string email, string phoneNumber, string address, TipoUsuario tipousuario)
+        private async Task ChechUsuarioAsync(string documento, string Nombre, string Apellido, string email, string phoneNumber,
+                                            string address, TipoUsuario tipousuario)
         {
             Usuario usuario = await _usuarioHelper.GetUsuarioAsync(email);
             if (usuario == null)

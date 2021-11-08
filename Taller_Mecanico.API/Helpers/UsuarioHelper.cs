@@ -41,10 +41,20 @@ namespace Taller_Mecanico.API.Helpers
             }
         }
 
+        public async Task<IdentityResult> DeleteUsuarioAsync(Usuario usuario)
+        {
+            return await _userManager.DeleteAsync(usuario);
+        }
+
         public async Task<Usuario> GetUsuarioAsync(string email)
         {
             return await _context.Users
-                .Include(x=>x.TipoDocumento)
+                .Include(x => x.TipoDocumento)
+                .Include(x => x.Vehiculos)
+                .ThenInclude(x => x.VehiculoFotos)
+                .Include(x => x.Vehiculos)
+                .ThenInclude(x => x.Historias)
+                .ThenInclude(x => x.Detalles)
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 
@@ -52,6 +62,11 @@ namespace Taller_Mecanico.API.Helpers
         {
             return await _context.Users
                 .Include(x => x.TipoDocumento)
+                .Include(x => x.Vehiculos)
+                .ThenInclude(x => x.VehiculoFotos)
+                .Include(x => x.Vehiculos)
+                .ThenInclude(x => x.Historias)
+                .ThenInclude(x => x.Detalles)
                 .FirstOrDefaultAsync(x => x.Id == id.ToString());
         }
 

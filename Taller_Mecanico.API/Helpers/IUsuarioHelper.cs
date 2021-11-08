@@ -14,6 +14,7 @@ namespace Taller_Mecanico.API.Helpers
         Task<Usuario> GetUsuarioAsync(Guid id);
         Task<IdentityResult> AddUsuarioAsync(Usuario usuario, string password);
         Task<IdentityResult> UpdateUsuarioAsync(Usuario usuario);
+        Task<IdentityResult> DeleteUsuarioAsync(Usuario usuario);
         Task CheckRoleAsync(string roleName);
         Task AddUsuarioToRoleAsync(Usuario usuario, string roleName);
         Task<bool> IsUserInRoleAsync(Usuario usuario, string roleName);

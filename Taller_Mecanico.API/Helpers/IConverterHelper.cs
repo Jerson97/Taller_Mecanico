@@ -12,5 +12,9 @@ namespace Taller_Mecanico.API.Helpers
         Task<Usuario> toUsuarioAsync(UsuarioViewModel model, Guid imageId, bool isNew);
 
         UsuarioViewModel toUsuarioViewModel(Usuario usuario);
+
+        Task<Vehiculo> toVehiculoAsync(VehiculoViewModel model, bool isNew);
+
+        VehiculoViewModel toVeihculoViewModel(Vehiculo vehiculo);
     }
 }
