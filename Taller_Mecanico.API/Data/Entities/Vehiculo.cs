@@ -56,7 +56,7 @@ namespace Taller_Mecanico.API.Data.Entities
 
         [Display(Name = "Foto")]
         public string ImageFullPath => VehiculoFotos == null || VehiculoFotos.Count == 0
-            ? $"https://localhost:5001/imagenes/noimage.png"
+            ? $"https://localhost:5001/imagenes/no-image.png"
             : VehiculoFotos.FirstOrDefault().ImageFullPath;
 
         public ICollection<Historial> Historias { get; set; }

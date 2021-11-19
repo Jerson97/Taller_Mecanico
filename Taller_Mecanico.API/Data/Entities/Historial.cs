@@ -25,6 +25,7 @@ namespace Taller_Mecanico.API.Data.Entities
 
         [Display(Name = "Kilometraje")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public int Kilometraje { get; set; }
 
         [Display(Name = "Observación")]

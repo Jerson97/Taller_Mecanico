@@ -27,6 +27,7 @@ namespace Taller_Mecanico.API
 
             services.AddIdentity<Usuario, IdentityRole>(x=>
             {
+                //x.SignIn.RequireConfirmedEmail = true;
                 x.User.RequireUniqueEmail = true;
                 x.Password.RequireDigit = false;
                 x.Password.RequiredUniqueChars = 0;
@@ -42,6 +43,7 @@ namespace Taller_Mecanico.API
 
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            
 
             services.AddTransient<SeedDb>(); //Trasient lo usamos cuando lo necesitamos solo una vez
             services.AddScoped<IUsuarioHelper, UsuarioHelper>(); //AddScoped es cuando necesitamos inyectar el ciclo de vida de esto, tiene q ver cada que nosotros llamemos, en este caso cada vez que llame al UserHelepr

@@ -83,7 +83,10 @@ namespace Taller_Mecanico.API.Helpers
                 Modelo = vehiculo.Modelo,
                 Placa = vehiculo.Placa.ToUpper(),
                 Observaciones = vehiculo.Observaciones,
-                UsuarioId = vehiculo.Usuario.Id
+                UsuarioId = vehiculo.Usuario.Id,
+                VehiculoFotos = vehiculo.VehiculoFotos,
+                TipoVehiculoId = vehiculo.TipoVehiculo.Id,
+                TipoVehiculos = _combosHelper.GetComboTipoVehiculo()
             };
         }
     }

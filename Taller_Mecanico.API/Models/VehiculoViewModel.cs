@@ -57,5 +57,9 @@ namespace Taller_Mecanico.API.Models
         [Display(Name ="Foto")]
         public IFormFile ImageFile { get; set; }
 
+        public ICollection<VehiculoFoto> VehiculoFotos { get; set; }
+
+        
+
     }
 }

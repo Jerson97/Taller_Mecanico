@@ -146,7 +146,6 @@ C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\TipoVehiculoes\Create.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\TipoVehiculoes\Details.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\TipoVehiculoes\Edit.cshtml.g.cs
-C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\TipoVehiculoes\Index.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Taller_Mecanico.API.csproj.AssemblyReference.cache
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Shared\_DeleteDialog.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\TipoVehiculoes\_TipoVehiculo.cshtml.g.cs
@@ -178,3 +177,11 @@ C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\Details.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\_Vehiculo.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\AddVehiculo.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\TipoVehiculoes\Index.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\EditVehiculo.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\AddVehiculoImage.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\DetailsVehiculo.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\AddHistoria.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\_Historia.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\Create.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\_Usuario.cshtml.g.cs

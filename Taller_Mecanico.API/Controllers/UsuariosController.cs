@@ -245,8 +245,249 @@ namespace Taller_Mecanico.API.Controllers
                 vehiculoViewModel.TipoVehiculos = _combosHelper.GetComboTipoVehiculo();
                 return View(vehiculoViewModel);
             }
+
+
+        public async Task<ActionResult> EditVehiculo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Vehiculo vehiculo = await _context.Vehiculos
+                .Include(x => x.Usuario)
+                .Include(x => x.Marca)
+                .Include(x => x.TipoVehiculo)
+                .Include(x => x.VehiculoFotos)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (vehiculo == null)
+            {
+                return NotFound();
+            }
+
+            VehiculoViewModel model = _converterHelper.toVeihculoViewModel(vehiculo);
+
+            return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditVehiculo(int id, VehiculoViewModel vehiculoViewModel)
+        {
+            if (id != vehiculoViewModel.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Vehiculo vehiculo = await _converterHelper.toVehiculoAsync(vehiculoViewModel, false);
+                    _context.Vehiculos.Update(vehiculo);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Details), new { id = vehiculoViewModel.UsuarioId });
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError(string.Empty, "Ya existe un vehiculo con esta placa.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }                   
+                }
+                catch(Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
+            }
+
+            vehiculoViewModel.TipoVehiculos = _combosHelper.GetComboTipoVehiculo();
+            vehiculoViewModel.Marcas = _combosHelper.GetComboMarcas();
+            return View(vehiculoViewModel);
+        }
+
+        public async Task<IActionResult> DeleteVehiculo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Vehiculo vehiculo = await _context.Vehiculos
+                .Include(x => x.Usuario)
+                .Include(x => x.VehiculoFotos)
+                .Include(x => x.Historias)
+                .ThenInclude(X => X.Detalles)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (vehiculo == null)
+            {
+                return NotFound();
+            }
+            foreach (VehiculoFoto vPhoto in vehiculo.VehiculoFotos)
+            {
+                await _blobHelper.DeleteBlobAsync(vPhoto.ImageId, "vehiculo");
+            }
+            _context.Vehiculos.Remove(vehiculo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { id= vehiculo.Usuario.Id});
+        }
+
+        public async Task<IActionResult> DeleteImageVehiculo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            VehiculoFoto vehiculoFoto = await _context.VehiculoFotos
+                .Include(x => x.Vehiculo)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (vehiculoFoto == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                await _blobHelper.DeleteBlobAsync(vehiculoFoto.ImageId, "vehiculo");
+            }
+            catch
+            {
+            }     
+            _context.VehiculoFotos.Remove(vehiculoFoto);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(EditVehiculo), new { id = vehiculoFoto.Vehiculo.Id });
+        }
+
+        public async Task<IActionResult> AddVehiculoImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Vehiculo vehiculo = await _context.Vehiculos
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (vehiculo == null)
+            {
+                return NotFound();
+            }
+
+            VehiculoFotoViewModel modelo = new VehiculoFotoViewModel
+            {
+                VehiculoId = vehiculo.Id
+            };
+            return View(modelo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddVehiculoImage(VehiculoFotoViewModel modelo)
+        {
+            if (ModelState.IsValid)
+            {
+                Guid imageId = await _blobHelper.UploadBlobAsync(modelo.ImageFile, "vehiculo");
+                Vehiculo vehiculo = await _context.Vehiculos
+                    .Include(x=> x.VehiculoFotos)
+                .FirstOrDefaultAsync(x => x.Id == modelo.VehiculoId);
+                if (vehiculo.VehiculoFotos == null)
+                {
+                    vehiculo.VehiculoFotos = new List<VehiculoFoto>();
+                }
+
+                vehiculo.VehiculoFotos.Add(new VehiculoFoto
+                {
+                    ImageId = imageId
+                });
+                _context.Vehiculos.Update(vehiculo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(EditVehiculo), new { id = vehiculo.Id });
+            }
+            return View(modelo);
+        }
+
+        public async Task<ActionResult> DetailsVehiculo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Vehiculo vehiculo = await _context.Vehiculos
+                .Include(x => x.Usuario)
+                .Include(x=> x.TipoVehiculo)
+                .Include(x=> x.Marca)
+                .Include(x=> x.VehiculoFotos)
+                .Include(x=> x.Historias)
+                .ThenInclude(x=> x.Detalles)
+                .ThenInclude(x=> x.Procedure)
+                .Include(x => x.Historias)
+                .ThenInclude(x=>x.Usuario)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (vehiculo == null)
+            {
+                return NotFound();
+            }
+            return View(vehiculo);
+        }
+
+        public async Task<ActionResult> AddHistoria(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Vehiculo vehiculo = await _context.Vehiculos.FindAsync(id);
+            if (vehiculo == null)
+            {
+                return NotFound();
+            }
+
+            HistoriaViewModel modelo = new HistoriaViewModel
+            {
+                VehiculoId = vehiculo.Id
+            };
+            return View(modelo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddHistoria(HistoriaViewModel modelo)
+        {
+            if (ModelState.IsValid)
+            {
+                Vehiculo vehiculo = await _context.Vehiculos
+                    .Include(x=> x.Historias)
+                    .FirstOrDefaultAsync(x => x.Id == modelo.VehiculoId);
+                if (vehiculo == null)
+                {
+                    return NotFound();
+                }
+
+                Usuario user = await _usuarioHelper.GetUsuarioAsync(User.Identity.Name);
+                Historial historial = new Historial
+                {
+                    Fecha = DateTime.Now,
+                    Kilometraje = modelo.Kilometraje,
+                    Obesersacion = modelo.Obesersacion,
+                    Usuario = user
+                };
+                if (vehiculo.Historias == null)
+                {
+                    vehiculo.Historias = new List<Historial>();
+                }
+                vehiculo.Historias.Add(historial);
+                _context.Update(vehiculo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(DetailsVehiculo), new { id = vehiculo.Id });
+            }
+            return View(modelo);
+        }
     }
+
+}
 
 

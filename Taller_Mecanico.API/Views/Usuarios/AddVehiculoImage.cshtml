@@ -1,0 +1,32 @@
+﻿@model Taller_Mecanico.API.Models.VehiculoFotoViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Adicionar</h2>
+
+<h4>Foto Vehículo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="AddVehiculoImage" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="VehiculoId" />
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+                <a asp-action="EditVehiculo" asp-route-id="@Model.VehiculoId" class="btn btn-success">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

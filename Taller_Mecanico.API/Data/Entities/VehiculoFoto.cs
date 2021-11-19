@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Taller_Mecanico.API.Data.Entities
@@ -10,7 +11,7 @@ namespace Taller_Mecanico.API.Data.Entities
     {
         public int Id { get; set; }
 
-        //[JsonIgnore]
+        [JsonIgnore]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public Vehiculo Vehiculo { get; set; }
 
