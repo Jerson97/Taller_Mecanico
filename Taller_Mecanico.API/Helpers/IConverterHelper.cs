@@ -16,5 +16,9 @@ namespace Taller_Mecanico.API.Helpers
         Task<Vehiculo> toVehiculoAsync(VehiculoViewModel model, bool isNew);
 
         VehiculoViewModel toVeihculoViewModel(Vehiculo vehiculo);
+
+        Task<Detalle> ToDetalleAsync(DetalleViewModel model, bool isnew);
+
+        DetalleViewModel ToDetalleViewModel(Detalle detalle);
     }
 }

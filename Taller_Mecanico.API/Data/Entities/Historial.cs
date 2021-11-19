@@ -19,9 +19,9 @@ namespace Taller_Mecanico.API.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         public DateTime Fecha { get; set; }
 
-        //[Display(Name = "Fecha")]
-        //[DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
-        //public DateTime FechaLocal => FechaLocal.ToLocalTime();
+        [Display(Name = "Fecha")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
+        public DateTime FechaLocal => Fecha.ToLocalTime();
 
         [Display(Name = "Kilometraje")]
         [DisplayFormat(DataFormatString = "{0:N0}")]

@@ -1,0 +1,29 @@
+﻿@model Taller_Mecanico.API.Models.DetalleViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Crear</h2>
+
+<h4>Detalle a la Historia</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddDetalle" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="HistorialId" />
+
+            <partial name="_Detalle" />
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="DetailsHistoria" asp-route-id="@Model.HistorialId" class="btn btn-success">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

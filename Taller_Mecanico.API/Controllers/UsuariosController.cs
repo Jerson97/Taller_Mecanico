@@ -470,7 +470,7 @@ namespace Taller_Mecanico.API.Controllers
                 Usuario user = await _usuarioHelper.GetUsuarioAsync(User.Identity.Name);
                 Historial historial = new Historial
                 {
-                    Fecha = DateTime.Now,
+                    Fecha = DateTime.UtcNow,
                     Kilometraje = modelo.Kilometraje,
                     Obesersacion = modelo.Obesersacion,
                     Usuario = user
@@ -486,6 +486,205 @@ namespace Taller_Mecanico.API.Controllers
             }
             return View(modelo);
         }
+
+        public async Task<ActionResult> EditHistoria(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Historial historial = await _context.Historiales
+                .Include(x => x.Vehiculo)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (historial == null)
+            {
+                return NotFound();
+            }
+
+            HistoriaViewModel model = new HistoriaViewModel
+            {
+                Kilometraje = historial.Kilometraje,
+                Obesersacion = historial.Obesersacion,
+                VehiculoId = historial.Vehiculo.Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditHistoria(int id, HistoriaViewModel historiaViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+                Historial historial = await _context.Historiales.FindAsync(id);
+                historial.Kilometraje = historiaViewModel.Kilometraje;
+                historial.Obesersacion = historiaViewModel.Obesersacion;
+                _context.Historiales.Update(historial);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(DetailsVehiculo), new { id = historiaViewModel.VehiculoId });
+
+            }
+
+            return View(historiaViewModel);
+        }
+
+        public async Task<IActionResult> DeleteHistoria(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Historial historial = await _context.Historiales
+                .Include(x => x.Detalles)
+                .Include(x => x.Vehiculo)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (historial == null)
+            {
+                return NotFound();
+            }
+
+            _context.Historiales.Remove(historial);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(DetailsVehiculo), new { id = historial.Vehiculo.Id });
+        }
+
+        public async Task<IActionResult> DetailsHistoria(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Historial historia = await _context.Historiales
+                .Include(x => x.Detalles)
+                .ThenInclude(x => x.Procedure)
+                .Include(x => x.Vehiculo)
+                .ThenInclude(x => x.VehiculoFotos)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (historia == null)
+            {
+                return NotFound();
+            }
+
+            return View(historia);
+        }
+
+
+        public async Task<ActionResult> AddDetalle(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Historial historial = await _context.Historiales.FindAsync(id);
+            if (historial == null)
+            {
+                return NotFound();
+            }
+
+            DetalleViewModel modelo = new DetalleViewModel
+            {
+                HistorialId = historial.Id,
+               Procedures = _combosHelper.GetComboProcedures()
+            };
+            return View(modelo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDetalle(DetalleViewModel detalleViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Historial historial = await _context.Historiales
+                    .Include(x => x.Detalles)
+                    .FirstOrDefaultAsync(x => x.Id == detalleViewModel.HistorialId);
+                if (historial == null)
+                {
+                    return NotFound();
+                }
+
+                if (historial.Detalles == null)
+                {
+                    historial.Detalles = new List<Detalle>();
+                }
+
+                Detalle detalle = await _converterHelper.ToDetalleAsync(detalleViewModel, true);
+                historial.Detalles.Add(detalle);
+                _context.Historiales.Update(historial);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(DetailsHistoria), new { id = detalleViewModel.HistorialId });
+            }
+
+            detalleViewModel.Procedures = _combosHelper.GetComboProcedures();
+            return View(detalleViewModel);
+        }
+
+        public async Task<ActionResult> EditDetalle(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Detalle detalle = await _context.Detalles
+                .Include(x => x.Historial)
+                .Include(x => x.Procedure)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (detalle == null)
+            {
+                return NotFound();
+            }
+
+            DetalleViewModel modelo = _converterHelper.ToDetalleViewModel(detalle);
+
+            return View(modelo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDetalle(int id, DetalleViewModel detalleViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Detalle detalle = await _converterHelper.ToDetalleAsync(detalleViewModel, false);
+                _context.Detalles.Update(detalle);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(DetailsHistoria), new { id = detalleViewModel.HistorialId });
+            }
+
+            detalleViewModel.Procedures = _combosHelper.GetComboProcedures();
+            return View(detalleViewModel);
+        }
+
+        public async Task<IActionResult> DeleteDetalle(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Detalle detalle = await _context.Detalles
+                .Include(x => x.Historial)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (detalle == null)
+            {
+                return NotFound();
+            }
+
+            _context.Detalles.Remove(detalle);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(DetailsHistoria), new { id = detalle.Historial.Id });
+        }
+
+
+
     }
 
 }

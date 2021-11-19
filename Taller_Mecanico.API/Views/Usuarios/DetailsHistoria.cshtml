@@ -1,0 +1,154 @@
+﻿@model Taller_Mecanico.API.Data.Entities.Historial
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<h2>Historia</h2>
+
+<div>
+    <h4>Historia</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Vehiculo.Placa)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Vehiculo.Placa)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Fecha)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Kilometraje)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Kilometraje)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Obesersacion)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Obesersacion)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.TotalLabor)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.TotalLabor)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.TotalRepuestos)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.TotalRepuestos)
+                </dd>
+                
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Total)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Total)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <img src="@Model.Vehiculo.ImageFullPath" style="width: 200px; height: 200px; max-width: 100%; height: auto;" />
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="AddDetalle" asp-route-id="@Model.Id" class="btn btn-primary">Adicionar Procedimiento</a>
+    <a asp-action="EditHistory" asp-route-id="@Model.Id" class="btn btn-warning">Editar Historia</a>
+    <a asp-action="DetailsVehiculo" asp-route-id="@Model.Vehiculo.Id" class="btn btn-success">Regresar</a>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Procedimientos</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="MyTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Detalles.FirstOrDefault().Procedure.Descripcion)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Detalles.FirstOrDefault().Observaciones)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Detalles.FirstOrDefault().PrecioLabor)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Detalles.FirstOrDefault().PrecioRepuestos)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Detalles.FirstOrDefault().PrecioTotal)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Detalles)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Procedure.Descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Observaciones)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PrecioLabor)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PrecioRepuestos)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PrecioTotal)
+                                </td>
+                                <td>
+                                    <a asp-action="EditDetalle" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Borrar</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_DeleteDialog" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="/js/deleteDialog.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "aLengthMenu": [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "Todos"]
+                ]
+            });
+            // Delete item
+            sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Usuarios/DeleteDetalle/', false);
+        });
+    </script>
+}

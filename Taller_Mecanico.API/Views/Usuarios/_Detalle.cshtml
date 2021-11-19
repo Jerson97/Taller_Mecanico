@@ -1,0 +1,24 @@
+﻿@model Taller_Mecanico.API.Models.DetalleViewModel
+<div class="form-group">
+    <label asp-for="ProcedureId" class="control-label"></label>
+    <select asp-for="ProcedureId" asp-items="Model.Procedures" class="form-control"></select>
+    <span asp-validation-for="ProcedureId" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Observaciones" class="control-label"></label>
+    <textarea asp-for="Observaciones" class="form-control"></textarea>
+    <span asp-validation-for="Observaciones" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="PrecioLabor" class="control-label"></label>
+    <input asp-for="PrecioLabor" class="form-control" />
+    <span asp-validation-for="PrecioLabor" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="PrecioRepuestos" class="control-label"></label>
+    <input asp-for="PrecioRepuestos" class="form-control" />
+    <span asp-validation-for="PrecioRepuestos" class="text-danger"></span>
+</div>

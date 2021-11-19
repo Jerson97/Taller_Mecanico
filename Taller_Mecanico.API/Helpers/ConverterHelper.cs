@@ -18,6 +18,34 @@ namespace Taller_Mecanico.API.Helpers
             _context = context;
             _combosHelper = combosHelper;
         }
+
+        public async Task<Detalle> ToDetalleAsync(DetalleViewModel model, bool isnew)
+        {
+            return new Detalle
+            {
+                Id = isnew ? 0 : model.Id,
+                Historial = await _context.Historiales.FindAsync(model.HistorialId),
+                PrecioLabor = model.PrecioLabor,
+                Procedure = await _context.Procedures.FindAsync(model.ProcedureId),
+                Observaciones = model.Observaciones,
+                PrecioRepuestos = model.PrecioRepuestos
+            };
+        }
+
+        public DetalleViewModel ToDetalleViewModel(Detalle detalle)
+        {
+            return new DetalleViewModel
+            {
+                HistorialId = detalle.Historial.Id,
+                Id = detalle.Id,
+                PrecioLabor = detalle.PrecioLabor,
+                ProcedureId = detalle.Procedure.Id,
+                Procedures = _combosHelper.GetComboProcedures(),
+                Observaciones = detalle.Observaciones,
+                PrecioRepuestos = detalle.PrecioRepuestos
+            };
+        }
+
         public async Task<Usuario> toUsuarioAsync(UsuarioViewModel model, Guid imageId, bool isNew)
         {
             return new Usuario

@@ -73,7 +73,7 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Historias.FirstOrDefault().Detalles)
+                                @Html.DisplayNameFor(model => model.Historias.FirstOrDefault().FechaLocal)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Historias.FirstOrDefault().Usuario.NombreCompleto)
@@ -104,7 +104,7 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Fecha)
+                                    @Html.DisplayFor(modelItem => item.FechaLocal)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Usuario.NombreCompleto)
@@ -161,7 +161,7 @@
                 "order": [[0, "desc"]]
             });
             // Delete item
-            sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Usuarios/DeleteHistory/', false);
+            sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Usuarios/DeleteHistoria/', false);
         });
     </script>
 }
