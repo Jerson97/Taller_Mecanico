@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Taller_Mecanico.API.Data.Entities;
 using Taller_Mecanico.API.Models;
+using Taller_Mecanico.Common.Enumeracion;
 
 namespace Taller_Mecanico.API.Helpers
 {
@@ -13,6 +14,8 @@ namespace Taller_Mecanico.API.Helpers
         Task<Usuario> GetUsuarioAsync(string email);
         Task<Usuario> GetUsuarioAsync(Guid id);
         Task<IdentityResult> AddUsuarioAsync(Usuario usuario, string password);
+        Task<Usuario> AddUsuarioAsync(AddUsuarioViewModel model, Guid imageId, TipoUsuario tipoUsuario);
+
         Task<IdentityResult> UpdateUsuarioAsync(Usuario usuario);
         Task<IdentityResult> DeleteUsuarioAsync(Usuario usuario);
         Task CheckRoleAsync(string roleName);

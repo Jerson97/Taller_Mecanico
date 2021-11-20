@@ -65,29 +65,19 @@ namespace Taller_Mecanico.API.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Registrar()
         {
-            return View(await _context.Users
-                .Include(x => x.TipoDocumento)
-                .Include(x => x.Vehiculos)
-                .Where(x => x.TipoUsuario == TipoUsuario.Usuario)
-                .ToListAsync());
-        }
-
-        public IActionResult Create()
-        {
-            UsuarioViewModel model = new UsuarioViewModel
+            AddUsuarioViewModel model = new AddUsuarioViewModel
             {
-                TipoDocumentos = _combosHelper.GetComboTipoDocumentos()
+                TiposDocumentos = _combosHelper.GetComboTipoDocumentos()
             };
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(UsuarioViewModel model)
+        public async Task<IActionResult> Registrar(AddUsuarioViewModel model)
         {
-
             if (ModelState.IsValid)
             {
                 Guid imageId = Guid.Empty;
@@ -97,16 +87,29 @@ namespace Taller_Mecanico.API.Controllers
                     imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "usuario");
                 }
 
-                Usuario user = await _converterHelper.toUsuarioAsync(model, imageId, true);
-                user.TipoUsuario = TipoUsuario.Usuario;
-                await _usuarioHelper.AddUsuarioAsync(user, "123456");
-                await _usuarioHelper.AddUsuarioToRoleAsync(user, user.TipoUsuario.ToString());
-
-
-                return RedirectToAction(nameof(Index));
+                Usuario user = await _usuarioHelper.AddUsuarioAsync(model, imageId, TipoUsuario.Usuario);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Este correo ya está siendo usado por otro usuario.");
+                    model.TiposDocumentos = _combosHelper.GetComboTipoDocumentos();
+                    return View(model);
+                }
+                LoginViewModel loginViewModel = new LoginViewModel
+                {
+                    Password = model.Password,
+                    RememberMe = false,
+                    Username = model.Username
+                };
+                var result2 = await _usuarioHelper.LoginAsync(loginViewModel);
+                if (result2.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            model.TipoDocumentos = _combosHelper.GetComboTipoDocumentos();
+
+            model.TiposDocumentos = _combosHelper.GetComboTipoDocumentos();
             return View(model);
         }
+
     }
 }

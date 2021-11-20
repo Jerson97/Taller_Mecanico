@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Taller_Mecanico.API.Data;
 using Taller_Mecanico.API.Data.Entities;
 using Taller_Mecanico.API.Models;
+using Taller_Mecanico.Common.Enumeracion;
 
 namespace Taller_Mecanico.API.Helpers
 {
@@ -25,6 +26,33 @@ namespace Taller_Mecanico.API.Helpers
         public async Task<IdentityResult> AddUsuarioAsync(Usuario usuario, string password)
         {
             return await _userManager.CreateAsync(usuario, password);
+        }
+
+        public async Task<Usuario> AddUsuarioAsync(AddUsuarioViewModel model, Guid imageId, TipoUsuario tipoUsuario)
+        {
+            Usuario usuario = new Usuario
+            {
+                Direccion = model.Direccion,
+                Documento = model.Documento,
+                Email = model.Username,
+                Nombres = model.Nombres,
+                Apellidos = model.Apellidos,
+                ImageId = imageId,
+                PhoneNumber = model.PhoneNumber,
+                TipoDocumento = await _context.TipoDocumentos.FindAsync(model.TipoDocumentoId),
+                UserName = model.Username,
+                TipoUsuario = tipoUsuario
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(usuario, model.Password);
+            if (result != IdentityResult.Success)
+            {
+                return null;
+            }
+            Usuario nuevoUsuario = await GetUsuarioAsync(model.Username);
+            await AddUsuarioToRoleAsync(nuevoUsuario, usuario.TipoUsuario.ToString());
+            return nuevoUsuario;
+
         }
 
         public async Task AddUsuarioToRoleAsync(Usuario usuario, string roleName)

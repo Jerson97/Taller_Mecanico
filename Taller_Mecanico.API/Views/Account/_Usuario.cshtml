@@ -1,4 +1,4 @@
-﻿@model Taller_Mecanico.API.Models.UsuarioViewModel
+﻿@model Taller_Mecanico.API.Models.EditUsuarioViewModel
 
 
 <div class="row">
@@ -17,7 +17,7 @@
 
         <div class="form-group">
             <label asp-for="TipoDocumentoId" class="control-label"></label>
-            <select asp-for="TipoDocumentoId" asp-items="Model.TipoDocumentos" class="form-control"></select>
+            <select asp-for="TipoDocumentoId" asp-items="Model.TiposDocumentos" class="form-control"></select>
             <span asp-validation-for="TipoDocumentoId" class="text-danger"></span>
         </div>
 
