@@ -190,3 +190,5 @@ C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\_Detalle.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Usuarios\EditDetalle.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\Registrar.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\ChangeUser.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\ChangePassword.cshtml.g.cs

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -108,6 +109,91 @@ namespace Taller_Mecanico.API.Controllers
             }
 
             model.TiposDocumentos = _combosHelper.GetComboTipoDocumentos();
+            return View(model);
+        }
+
+        public async Task<IActionResult> ChangeUser()
+        {
+            Usuario usuario = await _usuarioHelper.GetUsuarioAsync(User.Identity.Name);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            EditUsuarioViewModel model = new()
+            {
+                Direccion = usuario.Direccion,
+                Nombres = usuario.Nombres,
+                Apellidos = usuario.Apellidos,
+                PhoneNumber = usuario.PhoneNumber,
+                ImageId = usuario.ImageId,
+                Id = usuario.Id,
+                Documento = usuario.Documento,
+                TipoDocumentoId = usuario.TipoDocumento.Id,
+                TiposDocumentos = _combosHelper.GetComboTipoDocumentos(),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeUser(EditUsuarioViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Guid imageId = model.ImageId;
+
+                if (model.ImageFile != null)
+                {
+                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "users");
+                }
+
+                Usuario usuario = await _usuarioHelper.GetUsuarioAsync(User.Identity.Name);
+                usuario.Nombres = model.Nombres;
+                usuario.Apellidos = model.Apellidos;
+                usuario.Direccion = model.Direccion;
+                usuario.PhoneNumber = model.PhoneNumber;
+                usuario.ImageId = imageId;
+                usuario.TipoDocumento = await _context.TipoDocumentos.FindAsync(model.TipoDocumentoId);
+                usuario.Documento = model.Documento;
+                await _usuarioHelper.UpdateUsuarioAsync(usuario);
+                return RedirectToAction("Index", "Home");
+            }
+
+            model.TiposDocumentos = _combosHelper.GetComboTipoDocumentos();
+            return View(model);
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = await _usuarioHelper.GetUsuarioAsync(User.Identity.Name);
+                if (usuario != null)
+                {
+                    IdentityResult result = await _usuarioHelper.ChangePasswordAsync(usuario, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(ChangeUser));
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Usuario no encontrado.");
+                }
+            }
+
             return View(model);
         }
 

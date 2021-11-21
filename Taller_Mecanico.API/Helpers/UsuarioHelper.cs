@@ -60,6 +60,11 @@ namespace Taller_Mecanico.API.Helpers
             await _userManager.AddToRoleAsync(usuario, roleName);
         }
 
+        public async Task<IdentityResult> ChangePasswordAsync(Usuario usuario, string oldPassword, string newPassword)
+        {
+            return await _userManager.ChangePasswordAsync(usuario, oldPassword, newPassword);
+        }
+
         public async Task CheckRoleAsync(string roleName)
         {
             bool roleExists = await _roleManager.RoleExistsAsync(roleName);

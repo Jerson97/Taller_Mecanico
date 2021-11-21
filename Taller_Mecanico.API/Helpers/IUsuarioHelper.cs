@@ -23,5 +23,7 @@ namespace Taller_Mecanico.API.Helpers
         Task<bool> IsUserInRoleAsync(Usuario usuario, string roleName);
         Task<SignInResult> LoginAsync(LoginViewModel model);
         Task LogoutAsync();
+        Task <IdentityResult>ChangePasswordAsync(Usuario usuario, string oldPassword, string newPassword);
+
     }
 }
