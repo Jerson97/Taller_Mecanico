@@ -38,6 +38,14 @@
                         }
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Usuario"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Mis Vehiculos</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">

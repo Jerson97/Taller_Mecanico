@@ -56,6 +56,9 @@ namespace Taller_Mecanico.API.Data
 
                 await _usuarioHelper.AddUsuarioAsync(usuario, "123456");
                 await _usuarioHelper.AddUsuarioToRoleAsync(usuario, tipousuario.ToString());
+
+                string token = await _usuarioHelper.GenerateEmailConfirmationTokenAsync(usuario);
+                await _usuarioHelper.ConfirmEmailAsync(usuario, token);
             }
         }
 

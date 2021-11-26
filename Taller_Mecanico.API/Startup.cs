@@ -25,9 +25,10 @@ namespace Taller_Mecanico.API
         {
             services.AddControllersWithViews();
 
-            services.AddIdentity<Usuario, IdentityRole>(x=>
+            services.AddIdentity<Usuario, IdentityRole>(x =>
             {
-                //x.SignIn.RequireConfirmedEmail = true;
+                x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                x.SignIn.RequireConfirmedEmail = true;
                 x.User.RequireUniqueEmail = true;
                 x.Password.RequireDigit = false;
                 x.Password.RequiredUniqueChars = 0;
@@ -36,7 +37,9 @@ namespace Taller_Mecanico.API
                 x.Password.RequireUppercase = false;
                 //x.Password.RequiredLength = 10;
 
-            }).AddEntityFrameworkStores<DataContext>();
+            })
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<DataContext>();
 
             services.AddDbContext<DataContext>(x =>
             {
@@ -54,6 +57,8 @@ namespace Taller_Mecanico.API
             services.AddScoped<IBlobHelper, BlobHelper>();
             services.AddSingleton<IAlmacenadorArchivos, AlmacenadorArchivosLocales>();
             services.AddHttpContextAccessor();
+            services.AddScoped<IMailHelper, MailHelper>();
+
 
 
             //services.AddSingleton    // se usa cuando nosotros queremos q permanesca el objeto todo el ciclo de vida

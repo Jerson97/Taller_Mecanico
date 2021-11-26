@@ -15,7 +15,6 @@ namespace Taller_Mecanico.API.Helpers
         Task<Usuario> GetUsuarioAsync(Guid id);
         Task<IdentityResult> AddUsuarioAsync(Usuario usuario, string password);
         Task<Usuario> AddUsuarioAsync(AddUsuarioViewModel model, Guid imageId, TipoUsuario tipoUsuario);
-
         Task<IdentityResult> UpdateUsuarioAsync(Usuario usuario);
         Task<IdentityResult> DeleteUsuarioAsync(Usuario usuario);
         Task CheckRoleAsync(string roleName);
@@ -24,6 +23,14 @@ namespace Taller_Mecanico.API.Helpers
         Task<SignInResult> LoginAsync(LoginViewModel model);
         Task LogoutAsync();
         Task <IdentityResult>ChangePasswordAsync(Usuario usuario, string oldPassword, string newPassword);
+        Task<string> GenerateEmailConfirmationTokenAsync(Usuario usuario);
+        Task<IdentityResult> ConfirmEmailAsync(Usuario usuario, string token);
+
+        Task<string> GeneratePasswordResetTokenAsync(Usuario usuario);
+
+        Task<IdentityResult> ResetPasswordAsync(Usuario usuario, string token, string password);
+
+        //Task<SignInResult> ValidatePasswordAsync(Usuario user, string password);
 
     }
 }

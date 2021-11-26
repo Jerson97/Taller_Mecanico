@@ -192,3 +192,9 @@ C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\Registrar.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\ChangeUser.cshtml.g.cs
 C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\ChangePassword.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\bin\Debug\net5.0\MailKit.dll
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\bin\Debug\net5.0\MimeKit.dll
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\ConfirmEmail.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\RecoverPassword.cshtml.g.cs
+C:\Users\PERSONAL\source\repos\Proyectos2021\Taller_Mecanico\Taller_Mecanico.API\obj\Debug\net5.0\Razor\Views\Account\ResetPassword.cshtml.g.cs

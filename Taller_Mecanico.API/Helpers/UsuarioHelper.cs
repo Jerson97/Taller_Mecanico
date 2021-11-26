@@ -74,9 +74,24 @@ namespace Taller_Mecanico.API.Helpers
             }
         }
 
+        public async Task<IdentityResult> ConfirmEmailAsync(Usuario usuario, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(usuario, token);
+        }
+
         public async Task<IdentityResult> DeleteUsuarioAsync(Usuario usuario)
         {
             return await _userManager.DeleteAsync(usuario);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(Usuario usuario)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(usuario);
+        }
+
+        public async Task<string> GeneratePasswordResetTokenAsync(Usuario usuario)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(usuario);
         }
 
         public async Task<Usuario> GetUsuarioAsync(string email)
@@ -116,6 +131,11 @@ namespace Taller_Mecanico.API.Helpers
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(Usuario usuario, string token, string password)
+        {
+            return await _userManager.ResetPasswordAsync(usuario, token, password);
         }
 
         public async Task<IdentityResult> UpdateUsuarioAsync(Usuario usuario)

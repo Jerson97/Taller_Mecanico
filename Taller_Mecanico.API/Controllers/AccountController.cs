@@ -10,6 +10,7 @@ using Taller_Mecanico.API.Data.Entities;
 using Taller_Mecanico.API.Helpers;
 using Taller_Mecanico.API.Models;
 using Taller_Mecanico.Common.Enumeracion;
+using Taller_Mecanico.Common.Models;
 
 namespace Taller_Mecanico.API.Controllers
 {
@@ -20,14 +21,16 @@ namespace Taller_Mecanico.API.Controllers
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IBlobHelper _blobHelper;
+        private readonly IMailHelper _mailHelper;
 
-        public AccountController(DataContext context, IUsuarioHelper usuarioHelper, ICombosHelper combosHelper, IConverterHelper converterHelper, IBlobHelper blobHelper)
+        public AccountController(DataContext context, IUsuarioHelper usuarioHelper, ICombosHelper combosHelper, IConverterHelper converterHelper, IBlobHelper blobHelper, IMailHelper mailHelper)
         {
             _context = context;
             _usuarioHelper = usuarioHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
             _blobHelper = blobHelper;
+            _mailHelper = mailHelper;
         }
 
         public IActionResult Login()
@@ -88,24 +91,31 @@ namespace Taller_Mecanico.API.Controllers
                     imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "usuario");
                 }
 
-                Usuario user = await _usuarioHelper.AddUsuarioAsync(model, imageId, TipoUsuario.Usuario);
-                if (user == null)
+                Usuario usuario = await _usuarioHelper.AddUsuarioAsync(model, imageId, TipoUsuario.Usuario);
+                if (usuario == null)
                 {
                     ModelState.AddModelError(string.Empty, "Este correo ya está siendo usado por otro usuario.");
                     model.TiposDocumentos = _combosHelper.GetComboTipoDocumentos();
                     return View(model);
                 }
-                LoginViewModel loginViewModel = new LoginViewModel
+
+                string myToken = await _usuarioHelper.GenerateEmailConfirmationTokenAsync(usuario);
+                string tokenLink = Url.Action("ConfirmEmail", "Account", new
                 {
-                    Password = model.Password,
-                    RememberMe = false,
-                    Username = model.Username
-                };
-                var result2 = await _usuarioHelper.LoginAsync(loginViewModel);
-                if (result2.Succeeded)
+                    usuarioId = usuario.Id,
+                    token = myToken
+                }, protocol: HttpContext.Request.Scheme);
+
+                Response response = _mailHelper.SendMail(model.Username, "Vehicles - Confirmación de cuenta", $"<h1>Vehicles - Confirmación de cuenta</h1>" +
+                    $"Para habilitar el usuario, " +
+                    $"por favor hacer clic en el siguiente enlace: </br></br><a href = \"{tokenLink}\">Confirmar Email</a>");
+                if (response.IsSuccess)
                 {
-                    return RedirectToAction("Index", "Home");
+                    ViewBag.Message = "Las instrucciones para habilitar su cuenta han sido enviadas al correo.";
+                    return View(model);
                 }
+
+                ModelState.AddModelError(string.Empty, response.Message);
             }
 
             model.TiposDocumentos = _combosHelper.GetComboTipoDocumentos();
@@ -197,5 +207,85 @@ namespace Taller_Mecanico.API.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> ConfirmEmail(string usuarioId, string token)
+        {
+            if (string.IsNullOrEmpty(usuarioId) || string.IsNullOrEmpty(token))
+            {
+                return NotFound();
+            }
+
+            Usuario usuario = await _usuarioHelper.GetUsuarioAsync(new Guid(usuarioId));
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            IdentityResult result = await _usuarioHelper.ConfirmEmailAsync(usuario, token);
+            if (!result.Succeeded)
+            {
+                return NotFound();
+            }
+
+            return View();
+        }
+
+        public IActionResult RecoverPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RecoverPassword(RecoverPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = await _usuarioHelper.GetUsuarioAsync(model.Email);
+                if (usuario == null)
+                {
+                    ModelState.AddModelError(string.Empty, "El correo ingresado no corresponde a ningún usuario.");
+                    return View(model);
+                }
+
+                string myToken = await _usuarioHelper.GeneratePasswordResetTokenAsync(usuario);
+                string link = Url.Action(
+                    "ResetPassword",
+                    "Account",
+                    new { token = myToken }, protocol: HttpContext.Request.Scheme);
+                _mailHelper.SendMail(model.Email, "Taller Mecanico - Reseteo de contraseña", $"<h1>Vehicles - Reseteo de contraseña</h1>" +
+                    $"Para establecer una nueva contraseña haga clic en el siguiente enlace:</br></br>" +
+                    $"<a href = \"{link}\">Cambio de Contraseña</a>");
+                ViewBag.Message = "Las instrucciones para el cambio de contraseña han sido enviadas a su email.";
+                return View();
+
+            }
+
+            return View(model);
+        }
+
+        public IActionResult ResetPassword(string token)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            Usuario usuario = await _usuarioHelper.GetUsuarioAsync(model.UserName);
+            if (usuario != null)
+            {
+                IdentityResult result = await _usuarioHelper.ResetPasswordAsync(usuario, model.Token, model.Password);
+                if (result.Succeeded)
+                {
+                    ViewBag.Message = "Contaseña cambiada.";
+                    return View();
+                }
+
+                ViewBag.Message = "Error cambiando la contraseña.";
+                return View(model);
+            }
+
+            ViewBag.Message = "Usuario no encontrado.";
+            return View(model);
+        }
     }
 }

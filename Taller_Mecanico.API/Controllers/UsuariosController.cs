@@ -10,6 +10,7 @@ using Taller_Mecanico.API.Data.Entities;
 using Taller_Mecanico.API.Helpers;
 using Taller_Mecanico.API.Models;
 using Taller_Mecanico.Common.Enumeracion;
+using Taller_Mecanico.Common.Models;
 
 namespace Taller_Mecanico.API.Controllers
 {
@@ -21,14 +22,16 @@ namespace Taller_Mecanico.API.Controllers
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IBlobHelper _blobHelper;
+        private readonly IMailHelper _mailHelper;
 
-        public UsuariosController(DataContext context, IUsuarioHelper usuarioHelper, ICombosHelper combosHelper, IConverterHelper converterHelper, IBlobHelper blobHelper)
+        public UsuariosController(DataContext context, IUsuarioHelper usuarioHelper, ICombosHelper combosHelper, IConverterHelper converterHelper, IBlobHelper blobHelper, IMailHelper mailHelper)
         {
             _context = context;
             _usuarioHelper = usuarioHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
             _blobHelper = blobHelper;
+            _mailHelper = mailHelper;
         }
         public async Task<IActionResult> Index()
         {
@@ -62,11 +65,21 @@ namespace Taller_Mecanico.API.Controllers
                     imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "usuario");
                 }
 
-                Usuario user = await _converterHelper.toUsuarioAsync(model, imageId, true);
-                user.TipoUsuario = TipoUsuario.Usuario;
-                await _usuarioHelper.AddUsuarioAsync(user, "123456");
-                await _usuarioHelper.AddUsuarioToRoleAsync(user, user.TipoUsuario.ToString());
+                Usuario usuario = await _converterHelper.toUsuarioAsync(model, imageId, true);
+                usuario.TipoUsuario = TipoUsuario.Usuario;
+                await _usuarioHelper.AddUsuarioAsync(usuario, "123456");
+                await _usuarioHelper.AddUsuarioToRoleAsync(usuario, usuario.TipoUsuario.ToString());
 
+                string myToken = await _usuarioHelper.GenerateEmailConfirmationTokenAsync(usuario);
+                string tokenLink = Url.Action("ConfirmEmail", "Account", new
+                {
+                    usuarioId = usuario.Id,
+                    token = myToken
+                }, protocol: HttpContext.Request.Scheme);
+
+                Response response = _mailHelper.SendMail(model.Email, "Vehicles - Confirmación de cuenta", $"<h1>Vehicles - Confirmación de cuenta</h1>" +
+                    $"Para habilitar el usuario, " +
+                    $"por favor hacer clic en el siguiente enlace: </br></br><a href = \"{tokenLink}\">Confirmar Email</a>");
 
                 return RedirectToAction(nameof(Index));
             }
