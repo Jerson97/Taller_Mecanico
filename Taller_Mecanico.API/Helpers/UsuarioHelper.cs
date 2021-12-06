@@ -118,6 +118,21 @@ namespace Taller_Mecanico.API.Helpers
                 .FirstOrDefaultAsync(x => x.Id == id.ToString());
         }
 
+        //public async Task<Usuario> GetvehiculoAsync(string email)
+        //{
+        //    return await _context.Users
+        //        .Include(x => x.Vehiculos)
+        //        .ThenInclude(x => x.Color)
+        //        .Include(x => x.Vehiculos)
+        //        .ThenInclude(x => x.Marca)
+        //        .Include(x => x.Vehiculos)
+        //        .ThenInclude(x => x.Modelo)
+        //        .Include(x => x.Vehiculos)
+        //        .ThenInclude(x => x.Historias)
+        //        .ThenInclude(x => x.Detalles)
+        //        .FirstOrDefaultAsync(x => x.Email == email);
+        //}
+
         public async Task<bool> IsUserInRoleAsync(Usuario usuario, string roleName)
         {
             return await _userManager.IsInRoleAsync(usuario, roleName);

@@ -74,32 +74,32 @@ namespace Taller_Mecanico.API.Data
             {
 
 
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Alineación" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Lubricación de suspención delantera" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Lubricación de suspención trasera" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Frenos delanteros" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Frenos traseros" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Líquido frenos delanteros" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Líquido frenos traseros" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Calibración de válvulas" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Alineación carburador" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Aceite motor" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Aceite caja" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Filtro de aire" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Sistema eléctrico" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Guayas" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Cambio llanta delantera" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Cambio llanta trasera" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Reparación de motor" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Kit arrastre" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Banda transmisión" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Cambio batería" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Lavado sistema de inyección" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Lavada de tanque" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Cambio de bujia" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Cambio rodamiento delantero" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Cambio rodamiento trasero" });
-                _context.Procedures.Add(new Procedure { Precio = 10000, Descripcion = "Accesorios" });
+                _context.Procedures.Add(new Procedure { Precio = 1000, Descripcion = "Alineación" });
+                _context.Procedures.Add(new Procedure { Precio = 500, Descripcion = "Lubricación de suspención delantera" });
+                _context.Procedures.Add(new Procedure { Precio = 500, Descripcion = "Lubricación de suspención trasera" });
+                _context.Procedures.Add(new Procedure { Precio = 350, Descripcion = "Frenos delanteros" });
+                _context.Procedures.Add(new Procedure { Precio = 350, Descripcion = "Frenos traseros" });
+                _context.Procedures.Add(new Procedure { Precio = 150, Descripcion = "Líquido frenos delanteros" });
+                _context.Procedures.Add(new Procedure { Precio = 350, Descripcion = "Líquido frenos traseros" });
+                _context.Procedures.Add(new Procedure { Precio = 700, Descripcion = "Calibración de válvulas" });
+                _context.Procedures.Add(new Procedure { Precio = 650, Descripcion = "Alineación carburador" });
+                _context.Procedures.Add(new Procedure { Precio = 550, Descripcion = "Aceite motor" });
+                _context.Procedures.Add(new Procedure { Precio = 300, Descripcion = "Aceite caja" });
+                _context.Procedures.Add(new Procedure { Precio = 150, Descripcion = "Filtro de aire" });
+                _context.Procedures.Add(new Procedure { Precio = 1500, Descripcion = "Sistema eléctrico" });
+                _context.Procedures.Add(new Procedure { Precio = 450, Descripcion = "Guayas" });
+                _context.Procedures.Add(new Procedure { Precio = 100, Descripcion = "Cambio llanta delantera" });
+                _context.Procedures.Add(new Procedure { Precio = 100, Descripcion = "Cambio llanta trasera" });
+                _context.Procedures.Add(new Procedure { Precio = 1500, Descripcion = "Reparación de motor" });
+                _context.Procedures.Add(new Procedure { Precio = 1000, Descripcion = "Kit arrastre" });
+                _context.Procedures.Add(new Procedure { Precio = 900, Descripcion = "Banda transmisión" });
+                _context.Procedures.Add(new Procedure { Precio = 350, Descripcion = "Cambio batería" });
+                _context.Procedures.Add(new Procedure { Precio = 700, Descripcion = "Lavado sistema de inyección" });
+                _context.Procedures.Add(new Procedure { Precio = 250, Descripcion = "Lavada de tanque" });
+                _context.Procedures.Add(new Procedure { Precio = 350, Descripcion = "Cambio de bujia" });
+                _context.Procedures.Add(new Procedure { Precio = 200, Descripcion = "Cambio rodamiento delantero" });
+                _context.Procedures.Add(new Procedure { Precio = 200, Descripcion = "Cambio rodamiento trasero" });
+                _context.Procedures.Add(new Procedure { Precio = 700, Descripcion = "Accesorios" });
                 await _context.SaveChangesAsync();
             }
 

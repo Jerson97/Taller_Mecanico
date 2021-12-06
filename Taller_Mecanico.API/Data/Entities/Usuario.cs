@@ -40,7 +40,7 @@ namespace Taller_Mecanico.API.Data.Entities
         [Display(Name = "Foto")]
         public string ImageFullPath => ImageId == Guid.Empty // Si el guid no tiene nada entonces me mostrara como imagen que no tiene imagen
             ? $"https://localhost:5001/imagenes/no-image.png"
-            : $"https://ramireztaller.blob.core.windows.net/usuario/{ImageId}";
+            : $"https://ramirezstaller.blob.core.windows.net/usuario/{ImageId}";
 
         [Display(Name = "Tipo de Usuario")]
         public TipoUsuario TipoUsuario { get; set; }

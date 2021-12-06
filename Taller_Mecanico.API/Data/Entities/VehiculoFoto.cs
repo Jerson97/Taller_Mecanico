@@ -21,6 +21,6 @@ namespace Taller_Mecanico.API.Data.Entities
         [Display(Name = "Foto")]
         public string ImageFullPath => ImageId == Guid.Empty
             ? $"https://localhost:5001/imagenes/no-image.png"
-            : $"https://ramireztaller.blob.core.windows.net/vehiculo/{ImageId}";
+            : $"https://ramirezstaller.blob.core.windows.net/vehiculo/{ImageId}";
     }
 }

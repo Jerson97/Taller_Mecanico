@@ -77,7 +77,7 @@ namespace Taller_Mecanico.API.Controllers
                     token = myToken
                 }, protocol: HttpContext.Request.Scheme);
 
-                Response response = _mailHelper.SendMail(model.Email, "Vehicles - Confirmación de cuenta", $"<h1>Vehicles - Confirmación de cuenta</h1>" +
+                Response response = _mailHelper.SendMail(model.Email, "Taller Mecánico - Confirmación de cuenta", $"<h1>Taller Mecánico - Confirmación de cuenta</h1>" +
                     $"Para habilitar el usuario, " +
                     $"por favor hacer clic en el siguiente enlace: </br></br><a href = \"{tokenLink}\">Confirmar Email</a>");
 

@@ -12,6 +12,7 @@ namespace Taller_Mecanico.API.Helpers
     public interface IUsuarioHelper
     {
         Task<Usuario> GetUsuarioAsync(string email);
+        //Task<Vehiculo> GetvehiculoAsync(string email);
         Task<Usuario> GetUsuarioAsync(Guid id);
         Task<IdentityResult> AddUsuarioAsync(Usuario usuario, string password);
         Task<Usuario> AddUsuarioAsync(AddUsuarioViewModel model, Guid imageId, TipoUsuario tipoUsuario);

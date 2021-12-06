@@ -9153,7 +9153,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PERSONAL\\.nuget\\packages\\": {}
+    "C:\\Users\\PERSONAL\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -9164,8 +9165,12 @@
       "packagesPath": "C:\\Users\\PERSONAL\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\PERSONAL\\source\\repos\\Proyectos2021\\Taller_Mecanico\\Taller_Mecanico.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\PERSONAL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

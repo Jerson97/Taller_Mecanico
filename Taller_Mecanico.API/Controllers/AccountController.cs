@@ -106,7 +106,7 @@ namespace Taller_Mecanico.API.Controllers
                     token = myToken
                 }, protocol: HttpContext.Request.Scheme);
 
-                Response response = _mailHelper.SendMail(model.Username, "Vehicles - Confirmación de cuenta", $"<h1>Vehicles - Confirmación de cuenta</h1>" +
+                Response response = _mailHelper.SendMail(model.Username, "Taller Mecánico - Confirmación de cuenta", $"<h1>Taller Mecánico - Confirmación de cuenta</h1>" +
                     $"Para habilitar el usuario, " +
                     $"por favor hacer clic en el siguiente enlace: </br></br><a href = \"{tokenLink}\">Confirmar Email</a>");
                 if (response.IsSuccess)
@@ -141,6 +141,7 @@ namespace Taller_Mecanico.API.Controllers
                 Documento = usuario.Documento,
                 TipoDocumentoId = usuario.TipoDocumento.Id,
                 TiposDocumentos = _combosHelper.GetComboTipoDocumentos(),
+                
             };
 
             return View(model);
@@ -156,7 +157,7 @@ namespace Taller_Mecanico.API.Controllers
 
                 if (model.ImageFile != null)
                 {
-                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "users");
+                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "usuario");
                 }
 
                 Usuario usuario = await _usuarioHelper.GetUsuarioAsync(User.Identity.Name);
@@ -251,7 +252,7 @@ namespace Taller_Mecanico.API.Controllers
                     "ResetPassword",
                     "Account",
                     new { token = myToken }, protocol: HttpContext.Request.Scheme);
-                _mailHelper.SendMail(model.Email, "Taller Mecanico - Reseteo de contraseña", $"<h1>Vehicles - Reseteo de contraseña</h1>" +
+                _mailHelper.SendMail(model.Email, "Taller Mecanico - Reseteo de contraseña", $"<h1>Taller Mecanico - Reseteo de contraseña</h1>" +
                     $"Para establecer una nueva contraseña haga clic en el siguiente enlace:</br></br>" +
                     $"<a href = \"{link}\">Cambio de Contraseña</a>");
                 ViewBag.Message = "Las instrucciones para el cambio de contraseña han sido enviadas a su email.";
@@ -287,5 +288,31 @@ namespace Taller_Mecanico.API.Controllers
             ViewBag.Message = "Usuario no encontrado.";
             return View(model);
         }
+
+
+        //public async Task<ActionResult> DetailsVehiculo()
+        //{
+        //    Vehiculo usuario = await _usuarioHelper.GetUsuarioAsync(User.Identity.Name);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    VehiculoViewModel model = new()
+        //    {
+        //        Usuario = usuario.Id,
+        //        Marca = usuario.Marca,
+        //        Direccion = usuario.Direccion,
+        //        Nombres = usuario.Nombres,
+        //        Apellidos = usuario.Apellidos,
+        //        PhoneNumber = usuario.PhoneNumber,
+        //        ImageId = usuario.ImageId,
+        //        Id = usuario.Id,
+        //        Documento = usuario.Documento,
+        //        TipoDocumentoId = usuario.TipoDocumento.Id,
+        //        TiposDocumentos = _combosHelper.GetComboTipoDocumentos(),
+        //    };
+
+        //    return View(model);
+        //}
     }
 }

@@ -21,7 +21,7 @@
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Procedures" asp-action="Index">Procedimientos</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Procedures" asp-action="Index">Servicios</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="TipoVehiculoes" asp-action="Index">Tipos de Vehiculos</a>
@@ -37,14 +37,7 @@
                             </li>
                         }
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        @if (User.Identity.IsAuthenticated && User.IsInRole("Usuario"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Mis Vehiculos</a>
-                            </li>
-                        }
-                    </ul>
+
                     <ul class="nav navbar-nav navbar-right">
                         @if (User.Identity.IsAuthenticated)
                         {
