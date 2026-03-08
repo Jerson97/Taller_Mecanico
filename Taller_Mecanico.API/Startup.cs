@@ -57,7 +57,7 @@ namespace Taller_Mecanico.API
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<IBlobHelper, BlobHelper>();
-            services.AddSingleton<IAlmacenadorArchivos, AlmacenadorArchivosLocales>();
+            //services.AddSingleton<IAlmacenadorArchivos, AlmacenadorArchivosLocales>();
             services.AddHttpContextAccessor();
             services.AddScoped<IMailHelper, MailHelper>();
 
