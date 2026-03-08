@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Taller_Mecanico.API.Data.Entities
 {
@@ -20,7 +17,7 @@ namespace Taller_Mecanico.API.Data.Entities
 
         [Display(Name = "Foto")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://localhost:5001/imagenes/no-image.png"
+            ? "/imagenes/no-image.png"
             : $"https://ramirezstaller.blob.core.windows.net/vehiculo/{ImageId}";
     }
 }

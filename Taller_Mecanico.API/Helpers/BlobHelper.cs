@@ -3,9 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Taller_Mecanico.API.Helpers
@@ -22,6 +20,8 @@ namespace Taller_Mecanico.API.Helpers
         public async Task DeleteBlobAsync(Guid id, string nombreContenedor)
         {
             CloudBlobContainer contenedor = _blobClient.GetContainerReference(nombreContenedor);
+            await contenedor.CreateIfNotExistsAsync();
+
             CloudBlockBlob blockBlob = contenedor.GetBlockBlobReference($"{id}");
             await blockBlob.DeleteAsync();
         }
@@ -30,9 +30,13 @@ namespace Taller_Mecanico.API.Helpers
         {
             Stream stream = file.OpenReadStream();
             Guid nombre = Guid.NewGuid();
+
             CloudBlobContainer contenedor = _blobClient.GetContainerReference(nombreContenedor);
+            await contenedor.CreateIfNotExistsAsync();
+
             CloudBlockBlob blockBlob = contenedor.GetBlockBlobReference($"{nombre}");
             await blockBlob.UploadFromStreamAsync(stream);
+
             return nombre;
         }
 
@@ -40,9 +44,13 @@ namespace Taller_Mecanico.API.Helpers
         {
             MemoryStream stream = new MemoryStream(file);
             Guid nombre = Guid.NewGuid();
+
             CloudBlobContainer contenedor = _blobClient.GetContainerReference(nombreContenedor);
+            await contenedor.CreateIfNotExistsAsync();
+
             CloudBlockBlob blockBlob = contenedor.GetBlockBlobReference($"{nombre}");
             await blockBlob.UploadFromStreamAsync(stream);
+
             return nombre;
         }
 
@@ -50,9 +58,13 @@ namespace Taller_Mecanico.API.Helpers
         {
             Stream stream = File.OpenRead(image);
             Guid nombre = Guid.NewGuid();
+
             CloudBlobContainer contenedor = _blobClient.GetContainerReference(nombreContenedor);
+            await contenedor.CreateIfNotExistsAsync();
+
             CloudBlockBlob blockBlob = contenedor.GetBlockBlobReference($"{nombre}");
             await blockBlob.UploadFromStreamAsync(stream);
+
             return nombre;
         }
     }

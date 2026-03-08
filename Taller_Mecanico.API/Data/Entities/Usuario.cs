@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Taller_Mecanico.Common.Enumeracion;
 
 namespace Taller_Mecanico.API.Data.Entities
@@ -38,9 +36,9 @@ namespace Taller_Mecanico.API.Data.Entities
         public Guid ImageId { get; set; }
 
         [Display(Name = "Foto")]
-        public string ImageFullPath => ImageId == Guid.Empty // Si el guid no tiene nada entonces me mostrara como imagen que no tiene imagen
-            ? $"https://localhost:5001/imagenes/no-image.png"
-            : $"https://ramirezstaller.blob.core.windows.net/usuario/{ImageId}";
+        public string ImageFullPath => ImageId == Guid.Empty
+        ? "/imagenes/no-image.png"
+        : $"https://ramirezstaller.blob.core.windows.net/usuario/{ImageId}";
 
         [Display(Name = "Tipo de Usuario")]
         public TipoUsuario TipoUsuario { get; set; }
