@@ -38,7 +38,7 @@ namespace Taller_Mecanico.API.Data.Entities
         [Display(Name = "Foto")]
         public string ImageFullPath => ImageId == Guid.Empty
         ? "/imagenes/no-image.png"
-        : $"https://ramirezstaller.blob.core.windows.net/usuario/{ImageId}";
+        : $"https://tallermecanicostorage.blob.core.windows.net/usuario/{ImageId}";
 
         [Display(Name = "Tipo de Usuario")]
         public TipoUsuario TipoUsuario { get; set; }

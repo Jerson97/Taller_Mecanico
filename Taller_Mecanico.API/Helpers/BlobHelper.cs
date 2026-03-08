@@ -35,6 +35,8 @@ namespace Taller_Mecanico.API.Helpers
             await contenedor.CreateIfNotExistsAsync();
 
             CloudBlockBlob blockBlob = contenedor.GetBlockBlobReference($"{nombre}");
+            blockBlob.Properties.ContentType = file.ContentType;
+
             await blockBlob.UploadFromStreamAsync(stream);
 
             return nombre;

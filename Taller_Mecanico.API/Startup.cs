@@ -43,10 +43,12 @@ namespace Taller_Mecanico.API
 
             services.AddDbContext<DataContext>(x =>
             {
-
-                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                x.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    sqlOptions => sqlOptions.EnableRetryOnFailure()
+                );
             });
-            
+
 
             services.AddTransient<SeedDb>(); //Trasient lo usamos cuando lo necesitamos solo una vez
             services.AddScoped<IUsuarioHelper, UsuarioHelper>(); //AddScoped es cuando necesitamos inyectar el ciclo de vida de esto, tiene q ver cada que nosotros llamemos, en este caso cada vez que llame al UserHelepr
