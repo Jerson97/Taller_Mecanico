@@ -23,9 +23,16 @@ namespace Taller_Mecanico.API.Helpers
             _context = context;
             _signInManager = signInManager;
         }
-        public async Task<IdentityResult> AddUsuarioAsync(Usuario usuario, string password)
+        public async Task<Usuario> AddUsuarioAsync(Usuario usuario, string password)
         {
-            return await _userManager.CreateAsync(usuario, password);
+            IdentityResult result = await _userManager.CreateAsync(usuario, password);
+
+            if (!result.Succeeded)
+            {
+                return null;
+            }
+
+            return usuario;
         }
 
         public async Task<Usuario> AddUsuarioAsync(AddUsuarioViewModel model, Guid imageId, TipoUsuario tipoUsuario)

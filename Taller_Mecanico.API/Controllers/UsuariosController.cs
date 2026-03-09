@@ -67,7 +67,15 @@ namespace Taller_Mecanico.API.Controllers
 
                 Usuario usuario = await _converterHelper.toUsuarioAsync(model, imageId, true);
                 usuario.TipoUsuario = TipoUsuario.Usuario;
-                await _usuarioHelper.AddUsuarioAsync(usuario, "123456");
+                usuario = await _usuarioHelper.AddUsuarioAsync(usuario, "123456");
+
+                if (usuario == null)
+                {
+                    ModelState.AddModelError(string.Empty, "No se pudo crear el usuario.");
+                    model.TipoDocumentos = _combosHelper.GetComboTipoDocumentos();
+                    return View(model);
+                }
+
                 await _usuarioHelper.AddUsuarioToRoleAsync(usuario, usuario.TipoUsuario.ToString());
 
                 string myToken = await _usuarioHelper.GenerateEmailConfirmationTokenAsync(usuario);
